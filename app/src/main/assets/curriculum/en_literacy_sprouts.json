@@ -1,0 +1,89 @@
+{
+  "packId": "en_literacy_sprouts",
+  "language": "en",
+  "domain": "LITERACY",
+  "ageGroup": "SPROUTS",
+  "version": 1,
+  "activities": [
+    {
+      "id": "en_lit_sp_001",
+      "type": "STORY",
+      "domain": "LITERACY",
+      "ageGroup": "SPROUTS",
+      "title": "The Girl Who Kept a Journal",
+      "ariaPrompt": "There was a girl who carried a small notebook everywhere she went. Every day, she wrote down one thing she noticed — a color, a sound, a feeling. One day she wrote: 'Today the rain sounded like a drum.' What would YOU write in your notebook today?",
+      "followUps": [
+        "What is one thing you noticed today that was interesting or beautiful?",
+        "If you kept a journal, what would you write about?",
+        "Do you think writing things down helps you remember them better?"
+      ],
+      "vocabularyLevel": 2,
+      "estimatedMinutes": 6,
+      "tags": ["writing", "observation", "expression"]
+    },
+    {
+      "id": "en_lit_sp_002",
+      "type": "GAME",
+      "domain": "LITERACY",
+      "ageGroup": "SPROUTS",
+      "title": "Build a Sentence",
+      "ariaPrompt": "Let's build a sentence together! I'll give you three words and you make a sentence with them. Ready? The words are: 'dog', 'runs', 'fast'. Can you put them in a sentence?",
+      "followUps": [
+        "Now let's try: 'girl', 'laughs', 'loudly'.",
+        "Can you make a longer sentence by adding more words?",
+        "Make up your own sentence using three animals!"
+      ],
+      "vocabularyLevel": 2,
+      "estimatedMinutes": 5,
+      "tags": ["grammar", "sentences", "language"]
+    },
+    {
+      "id": "en_lit_sp_003",
+      "type": "QUESTION",
+      "domain": "LITERACY",
+      "ageGroup": "SPROUTS",
+      "title": "What Happened Next?",
+      "ariaPrompt": "Yasmin woke up one morning and the whole world outside her window was covered in white. She had never seen snow before. She put on her shoes and opened the door and stepped outside. What do you think happened when she touched the snow for the first time?",
+      "followUps": [
+        "Have you ever experienced something for the very first time and felt surprised?",
+        "What words would you use to describe how cold snow feels?",
+        "How do you think Yasmin felt? Can you describe her feelings?"
+      ],
+      "vocabularyLevel": 2,
+      "estimatedMinutes": 6,
+      "tags": ["comprehension", "inference", "feelings"]
+    },
+    {
+      "id": "en_lit_sp_004",
+      "type": "CREATIVE",
+      "domain": "LITERACY",
+      "ageGroup": "SPROUTS",
+      "title": "My Story",
+      "ariaPrompt": "I want to hear a story that YOU make up. Start with these words: 'One day, a child found something strange under an old tree...' You take it from here! What did they find?",
+      "followUps": [
+        "Tell me more about the main character. What are they like?",
+        "What is the biggest problem in your story?",
+        "How does your story end? Is it a happy ending?"
+      ],
+      "vocabularyLevel": 2,
+      "estimatedMinutes": 8,
+      "tags": ["creative-writing", "storytelling", "imagination"]
+    },
+    {
+      "id": "en_lit_sp_005",
+      "type": "QUESTION",
+      "domain": "LITERACY",
+      "ageGroup": "SPROUTS",
+      "title": "Rhyme Time",
+      "ariaPrompt": "Words that rhyme sound the same at the end — like 'cat' and 'hat', or 'tree' and 'free'. Can you tell me a word that rhymes with 'sun'?",
+      "followUps": [
+        "Can you find three words that rhyme with 'night'?",
+        "Make up a short two-line rhyme about anything you like!",
+        "Can you find a word that rhymes with your name?"
+      ],
+      "vocabularyLevel": 2,
+      "estimatedMinutes": 5,
+      "tags": ["phonics", "rhyme", "poetry"]
+    }
+  ]
+}

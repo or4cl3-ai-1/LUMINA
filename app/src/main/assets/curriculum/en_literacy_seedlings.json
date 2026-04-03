@@ -1,0 +1,137 @@
+{
+  "packId": "en_literacy_seedlings",
+  "language": "en",
+  "domain": "LITERACY",
+  "ageGroup": "SEEDLINGS",
+  "version": 1,
+  "activities": [
+    {
+      "id": "en_lit_s_001",
+      "type": "STORY",
+      "domain": "LITERACY",
+      "ageGroup": "SEEDLINGS",
+      "title": "The Little Seed",
+      "ariaPrompt": "Once there was a tiny seed that fell into the ground. It was dark and quiet down there. Then one day, something amazing happened! Can you guess what?",
+      "followUps": [
+        "What does a seed need to grow?",
+        "Have you ever seen a plant grow from a tiny seed?",
+        "If you were a seed, what kind of plant would you want to become?"
+      ],
+      "vocabularyLevel": 1,
+      "estimatedMinutes": 5,
+      "tags": ["nature", "growth", "story"]
+    },
+    {
+      "id": "en_lit_s_002",
+      "type": "QUESTION",
+      "domain": "LITERACY",
+      "ageGroup": "SEEDLINGS",
+      "title": "Colors Around Me",
+      "ariaPrompt": "I love colors! Can you tell me — what color do you see right now, close to you? What is it?",
+      "followUps": [
+        "Can you find something red? Something blue?",
+        "What is your favorite color? Why do you like it?",
+        "If you could make the sky any color, what color would you choose?"
+      ],
+      "vocabularyLevel": 1,
+      "estimatedMinutes": 4,
+      "tags": ["vocabulary", "colors", "observation"]
+    },
+    {
+      "id": "en_lit_s_003",
+      "type": "CREATIVE",
+      "domain": "LITERACY",
+      "ageGroup": "SEEDLINGS",
+      "title": "My Favorite Animal",
+      "ariaPrompt": "I want to hear about your favorite animal! What animal do you love most? Tell me everything about it!",
+      "followUps": [
+        "What sound does it make? Can you show me?",
+        "Where does this animal live?",
+        "If this animal could talk, what do you think it would say?"
+      ],
+      "vocabularyLevel": 1,
+      "estimatedMinutes": 5,
+      "tags": ["vocabulary", "animals", "expression"]
+    },
+    {
+      "id": "en_lit_s_004",
+      "type": "STORY",
+      "domain": "LITERACY",
+      "ageGroup": "SEEDLINGS",
+      "title": "The Lost Cloud",
+      "ariaPrompt": "High up in the sky, there was a little cloud that got separated from all the other clouds. It floated and floated, all alone. What do you think the cloud was looking for?",
+      "followUps": [
+        "Have you ever felt lost or far from home?",
+        "How did the cloud feel, all alone up there?",
+        "Can you tell me what happened next in the story?"
+      ],
+      "vocabularyLevel": 1,
+      "estimatedMinutes": 6,
+      "tags": ["emotions", "empathy", "storytelling"]
+    },
+    {
+      "id": "en_lit_s_005",
+      "type": "GAME",
+      "domain": "LITERACY",
+      "ageGroup": "SEEDLINGS",
+      "title": "What Starts With...",
+      "ariaPrompt": "Let's play a letter game! I'll think of a letter, and you think of things that start with that sound. Ready? The letter is... S! Like 'sun'. What else starts with S?",
+      "followUps": [
+        "Great! Now let's try the letter M, like 'moon'.",
+        "Can you think of your name — what letter does it start with?",
+        "Let's find things around you that start with the letter B!"
+      ],
+      "vocabularyLevel": 1,
+      "estimatedMinutes": 5,
+      "tags": ["phonics", "letters", "game"]
+    },
+    {
+      "id": "en_lit_s_006",
+      "type": "STORY",
+      "domain": "LITERACY",
+      "ageGroup": "SEEDLINGS",
+      "title": "The Brave Little Fish",
+      "ariaPrompt": "There was a little fish in a big, wide river. All the other fish were scared to swim past the big rocks. But this little fish wanted to see what was on the other side. Do you think the little fish was brave?",
+      "followUps": [
+        "Have you ever done something brave?",
+        "What helped the little fish feel brave enough to try?",
+        "What do you think the little fish found on the other side?"
+      ],
+      "vocabularyLevel": 2,
+      "estimatedMinutes": 6,
+      "tags": ["courage", "resilience", "story"]
+    },
+    {
+      "id": "en_lit_s_007",
+      "type": "CREATIVE",
+      "domain": "LITERACY",
+      "ageGroup": "SEEDLINGS",
+      "title": "My Imaginary Place",
+      "ariaPrompt": "Close your eyes for just a moment. Imagine a place where you feel completely happy and safe. Can you describe it to me? What do you see there?",
+      "followUps": [
+        "What sounds do you hear in this place?",
+        "Who else is there with you, or are you alone?",
+        "If I visited your special place, what would I find there?"
+      ],
+      "vocabularyLevel": 1,
+      "estimatedMinutes": 5,
+      "tags": ["imagination", "safe-place", "wellbeing"]
+    },
+    {
+      "id": "en_lit_s_008",
+      "type": "QUESTION",
+      "domain": "LITERACY",
+      "ageGroup": "SEEDLINGS",
+      "title": "Opposites",
+      "ariaPrompt": "Let's think about opposites! Big and small are opposites. Hot and cold are opposites. Can you tell me — what is the opposite of night?",
+      "followUps": [
+        "What is the opposite of happy?",
+        "What is the opposite of up?",
+        "Can you think of your own pair of opposites?"
+      ],
+      "vocabularyLevel": 1,
+      "estimatedMinutes": 4,
+      "tags": ["vocabulary", "concepts", "language"]
+    }
+  ]
+}

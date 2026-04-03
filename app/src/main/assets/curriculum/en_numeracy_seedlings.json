@@ -1,0 +1,89 @@
+{
+  "packId": "en_numeracy_seedlings",
+  "language": "en",
+  "domain": "NUMERACY",
+  "ageGroup": "SEEDLINGS",
+  "version": 1,
+  "activities": [
+    {
+      "id": "en_num_s_001",
+      "type": "GAME",
+      "domain": "NUMERACY",
+      "ageGroup": "SEEDLINGS",
+      "title": "Let's Count Together!",
+      "ariaPrompt": "I love counting! Let's count together. Hold up your fingers and let's count to five. Ready? One... two... you say the next one! What comes after two?",
+      "followUps": [
+        "Great! Now let's count to ten! Can you do it?",
+        "Look around you — can you count how many things you can see?",
+        "Can you count backwards from five? Five... four... you try!"
+      ],
+      "vocabularyLevel": 1,
+      "estimatedMinutes": 4,
+      "tags": ["counting", "numbers", "fundamentals"]
+    },
+    {
+      "id": "en_num_s_002",
+      "type": "GAME",
+      "domain": "NUMERACY",
+      "ageGroup": "SEEDLINGS",
+      "title": "More or Less?",
+      "ariaPrompt": "Here's a fun question: if you had 3 mangoes and your friend had 5 mangoes, who has MORE? Take your time, think about it!",
+      "followUps": [
+        "If you have 7 stones and I have 4 stones, who has less?",
+        "Can you think of two groups of things and tell me which group is bigger?",
+        "If you had 6 sweets and ate 2, how many would be left?"
+      ],
+      "vocabularyLevel": 1,
+      "estimatedMinutes": 5,
+      "tags": ["comparison", "more-less", "quantity"]
+    },
+    {
+      "id": "en_num_s_003",
+      "type": "GAME",
+      "domain": "NUMERACY",
+      "ageGroup": "SEEDLINGS",
+      "title": "Sharing Fairly",
+      "ariaPrompt": "You have 4 oranges and you want to share them equally with your friend. How many oranges does each person get? Let's think about it together!",
+      "followUps": [
+        "What if you had 6 oranges and two friends to share with?",
+        "When you share something equally, does everyone get the same amount?",
+        "Can you think of something you like to share with others?"
+      ],
+      "vocabularyLevel": 1,
+      "estimatedMinutes": 5,
+      "tags": ["division", "sharing", "fairness"]
+    },
+    {
+      "id": "en_num_s_004",
+      "type": "QUESTION",
+      "domain": "NUMERACY",
+      "ageGroup": "SEEDLINGS",
+      "title": "Shapes All Around",
+      "ariaPrompt": "Shapes are everywhere! A ball is round — it's a circle shape. A door is usually a rectangle. Can you look around right now and find something that is a square?",
+      "followUps": [
+        "Can you find something shaped like a triangle?",
+        "How many sides does a square have? Count them!",
+        "What shape is the sun? What shape are the clouds?"
+      ],
+      "vocabularyLevel": 1,
+      "estimatedMinutes": 4,
+      "tags": ["shapes", "geometry", "observation"]
+    },
+    {
+      "id": "en_num_s_005",
+      "type": "GAME",
+      "domain": "NUMERACY",
+      "ageGroup": "SEEDLINGS",
+      "title": "Adding with Fingers",
+      "ariaPrompt": "Hold up 2 fingers on one hand. Now hold up 3 fingers on the other hand. Count ALL your fingers together — how many is that?",
+      "followUps": [
+        "Now try 4 fingers and 1 finger. How many altogether?",
+        "What is 3 + 3? You can use your fingers!",
+        "Can you make up your own adding question for me?"
+      ],
+      "vocabularyLevel": 1,
+      "estimatedMinutes": 5,
+      "tags": ["addition", "fingers", "arithmetic"]
+    }
+  ]
+}

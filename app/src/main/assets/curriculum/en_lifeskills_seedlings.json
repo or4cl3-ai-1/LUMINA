@@ -1,0 +1,57 @@
+{
+  "packId": "en_lifeskills_seedlings",
+  "language": "en",
+  "domain": "LIFE_SKILLS",
+  "ageGroup": "SEEDLINGS",
+  "version": 1,
+  "activities": [
+    {
+      "id": "en_ls_s_001",
+      "type": "LIFE_SKILL",
+      "domain": "LIFE_SKILLS",
+      "ageGroup": "SEEDLINGS",
+      "title": "Feelings Have Names",
+      "ariaPrompt": "Did you know that all feelings have names? Happy, sad, scared, surprised, angry, calm — these are all feeling words! Can you show me with your face what 'happy' looks like?",
+      "followUps": [
+        "Now show me 'surprised'! What does your face do?",
+        "Have you felt angry today? Yesterday? That's completely okay.",
+        "When you feel worried, what helps you feel a little better?"
+      ],
+      "vocabularyLevel": 1,
+      "estimatedMinutes": 5,
+      "tags": ["emotions", "feelings", "self-awareness"]
+    },
+    {
+      "id": "en_ls_s_002",
+      "type": "LIFE_SKILL",
+      "domain": "LIFE_SKILLS",
+      "ageGroup": "SEEDLINGS",
+      "title": "Washing Our Hands",
+      "ariaPrompt": "Here's an important secret — tiny things called germs can make us sick, but we can't even see them! Washing our hands helps keep germs away. When is the best time to wash your hands?",
+      "followUps": [
+        "Do you wash your hands before eating? After the toilet?",
+        "Can you show me or describe how you wash your hands? Step by step!",
+        "Why do you think keeping clean helps us stay healthy?"
+      ],
+      "vocabularyLevel": 1,
+      "estimatedMinutes": 4,
+      "tags": ["hygiene", "health", "safety"]
+    },
+    {
+      "id": "en_ls_s_003",
+      "type": "LIFE_SKILL",
+      "domain": "LIFE_SKILLS",
+      "ageGroup": "SEEDLINGS",
+      "title": "Safe Adults",
+      "ariaPrompt": "We all need grown-ups we can trust. A safe adult is someone who makes you feel protected and cared for. Can you think of one grown-up in your life who feels safe to you?",
+      "followUps": [
+        "What makes that person feel safe to you?",
+        "If something worried you or scared you, could you tell that person?",
+        "Remember: you never have to keep secrets that make you feel bad or scared."
+      ],
+      "vocabularyLevel": 1,
+      "estimatedMinutes": 6,
+      "tags": ["safety", "trusted-adults", "safeguarding"]
+    }
+  ]
+}
