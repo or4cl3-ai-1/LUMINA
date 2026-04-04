@@ -1,40 +1,38 @@
 package ai.or4cl3.lumina.agents.aria
 
 import ai.or4cl3.lumina.agents.*
+import ai.or4cl3.lumina.core.curriculum.CurriculumLoader
 import ai.or4cl3.lumina.core.model.GemmaInferenceEngine
 import ai.or4cl3.lumina.core.model.PromptMessage
 import ai.or4cl3.lumina.core.session.*
 import kotlinx.coroutines.flow.toList
 
 /**
- * ARIA — Adaptive Responsive Intelligence for Academics
+ * AriaAgent v2 — now integrated with CurriculumLoader.
  *
- * ARIA is LUMINA's learning agent. It delivers adaptive educational
- * content across literacy, numeracy, life skills, and creative expression.
- *
- * Critical constraints:
- *  - ARIA never initiates a session. HAVEN always opens first.
- *  - ARIA pauses immediately when HAVEN raises a non-ready signal.
- *  - ARIA never marks an answer wrong. It redirects with curiosity.
- *  - ARIA always offers choice before advancing.
+ * ARIA selects a contextually appropriate activity from the curriculum
+ * and weaves it into her system prompt so every session has purposeful,
+ * age-appropriate learning content — not just free-form chat.
  */
 class AriaAgent(
-    private val engine: GemmaInferenceEngine
+    private val engine: GemmaInferenceEngine,
+    private val curriculum: CurriculumLoader
 ) : LuminaAgent {
 
-    override val agentId   = "aria-v1"
+    override val agentId   = "aria-v2"
     override val agentType = AgentType.ARIA
     override val agentName = "ARIA"
+
+    private var currentActivityId: String? = null
 
     // ── Core process ──────────────────────────────────────────────────────────
 
     override suspend fun process(input: UserInput, state: SessionState): AgentResponse {
-        // Gate: ARIA yields to HAVEN if child is not emotionally ready
         if (!state.emotionalState.learningReady) {
             return AgentResponse(
-                content = "",
-                agentType = agentType,
-                handoffTo = AgentType.HAVEN,
+                content            = "",
+                agentType          = agentType,
+                handoffTo          = AgentType.HAVEN,
                 sessionPhaseUpdate = SessionPhase.SUPPORT
             )
         }
@@ -47,75 +45,84 @@ class AriaAgent(
         val response = tokens.joinToString("")
 
         return AgentResponse(
-            content = response,
-            agentType = agentType,
+            content            = response,
+            agentType          = agentType,
             sessionPhaseUpdate = SessionPhase.LEARNING
         )
     }
 
-    // ── System prompt ─────────────────────────────────────────────────────────
+    // ── System prompt (with live curriculum activity) ───────────────────────────
 
     override fun buildSystemPrompt(state: SessionState): String {
-        val p        = state.childProfile
-        val ag       = p.ageGroup
-        val domain   = state.learningState.currentDomain?.name?.lowercase()?.replace('_', ' ')
-            ?: "open exploration"
-        val literacy = p.assessedLiteracyLevel.name.lowercase().replace('_', ' ')
-        val mood     = state.emotionalState.valence
+        val p      = state.childProfile
+        val ag     = p.ageGroup
+        val mood   = state.emotionalState.valence
+        val domain = state.learningState.currentDomain ?: CurriculumDomain.LITERACY
+
+        // Pull a live activity from the curriculum
+        val activityContext = curriculum.selectNextActivity(
+            language        = p.languageCode,
+            domain          = domain,
+            ageGroup        = ag,
+            emotionalState  = state.emotionalState,
+            learningState   = state.learningState,
+            recentActivityIds = setOf(currentActivityId ?: "")
+        )?.also { currentActivityId = it.activity.id }
+            ?.let { curriculum.buildActivityContext(it.activity) }
+            ?: "Explore freely — follow the child's curiosity."
 
         val toneNote = when {
-            mood < -0.1f -> "The child seems a little quiet today. Be extra gentle, patient, and brief."
-            mood >  0.6f -> "The child is in great spirits — match their energy with warmth and enthusiasm!"
+            mood < -0.1f -> "The child seems quiet today. Be extra gentle, short, and patient."
+            mood >  0.6f -> "The child is in great spirits — match their energy!"
             else         -> "Be warm, curious, and encouraging."
         }
 
         return """
-You are ARIA, a warm and curious learning companion for a child.
-Age group  : ${ag.displayName} (${ag.minAge}–${ag.maxAge} years old)
-Literacy   : $literacy
-Focus today: $domain
-Language   : ${p.languageCode}
+You are ARIA, a warm and curious learning companion.
+Age group : ${ag.displayName} (${ag.minAge}–${ag.maxAge} years)
+Language  : ${p.languageCode}
 
 $toneNote
 
-Core rules — follow without exception:
-1. NEVER call an answer wrong. Instead: "Interesting! Let's think about it another way…"
-2. Celebrate effort, not just correctness. Every attempt is worth praising.
-3. Keep responses SHORT — 2–4 sentences for Seedlings/Sprouts; slightly richer for Growers/Bridges.
-4. Always offer a choice before moving to a new activity.
-5. If the child mentions something upsetting, say: "Thank you for telling me" and immediately hand off.
-6. You are a companion exploring ideas *together* — not a teacher delivering content.
-7. Respond in ${p.languageCode} unless the child switches language first.
+--- Today's activity ---
+$activityContext
+------------------------
+
+Core rules:
+1. Open with the activity prompt naturally — don't announce it as a lesson.
+2. NEVER call an answer wrong. Redirect with curiosity.
+3. Celebrate effort over correctness, always.
+4. Keep responses SHORT — 2–4 sentences max.
+5. Always offer a choice before moving to something new.
+6. If the child mentions anything upsetting, say \"Thank you for telling me\" and hand off.
+7. You are a companion, not a teacher. Explore together.
+8. Respond in ${p.languageCode}.
 """.trimIndent()
     }
 
-    // ── History builder ───────────────────────────────────────────────────────
+    // ── History + input helpers ────────────────────────────────────────────────
 
     private fun buildHistory(state: SessionState): List<PromptMessage> =
         state.sessionHistory
             .filter { it.agentType == AgentType.ARIA || it.userInput != null }
             .takeLast(10)
-            .flatMap { interaction ->
+            .flatMap { i ->
                 buildList {
-                    interaction.userInput?.let { add(PromptMessage(it, isUser = true)) }
-                    add(PromptMessage(interaction.agentResponse, isUser = false))
+                    i.userInput?.let { add(PromptMessage(it, isUser = true)) }
+                    add(PromptMessage(i.agentResponse, isUser = false))
                 }
             }
 
-    // ── Input normaliser ──────────────────────────────────────────────────────
-
     private fun inputToText(input: UserInput): String = when (input) {
-        is UserInput.Text           -> input.content
+        is UserInput.Text            -> input.content
         is UserInput.VoiceTranscript -> input.transcript
-        is UserInput.Image          -> input.description ?: "I drew something for you!"
-        is UserInput.Silence        -> "[The child hasn't responded yet — hold space gently.]"
-        is UserInput.SessionStart   -> "Let's learn something wonderful today!"
-        is UserInput.SessionEnd     -> ""
+        is UserInput.Image           -> input.description ?: "I drew something!"
+        is UserInput.Silence         -> "[The child hasn't responded — hold space gently.]"
+        is UserInput.SessionStart    -> "[Session starting — open with today's activity naturally.]"
+        is UserInput.SessionEnd      -> ""
     }
 
-    // ── Session hooks ─────────────────────────────────────────────────────────
-
-    override fun onSessionStart(profile: ChildProfile) { /* reset any per-session ARIA state */ }
-    override fun onSessionEnd(summary: SessionSummary) { /* log completion metrics */ }
-    override fun onStateChange(newState: SessionState) { /* react to state evolution */ }
+    override fun onSessionStart(profile: ChildProfile) { currentActivityId = null }
+    override fun onSessionEnd(summary: SessionSummary)  { }
+    override fun onStateChange(newState: SessionState)  { }
 }
