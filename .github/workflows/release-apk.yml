@@ -1,0 +1,107 @@
+name: Build & Release APK
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version (e.g., v0.1.0-alpha)'
+        required: true
+        default: 'v0.1.0-alpha'
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    name: Build APK & Create Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Resolve version tag
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "tag=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
+          else
+            echo "tag=${{ github.ref_name }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug --no-daemon
+
+      - name: Stage APK for release
+        run: |
+          cp app/build/outputs/apk/debug/app-debug.apk "LUMINA-${{ steps.version.outputs.tag }}.apk"
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.tag }}
+          name: "LUMINA ${{ steps.version.outputs.tag }}"
+          prerelease: ${{ contains(steps.version.outputs.tag, 'alpha') || contains(steps.version.outputs.tag, 'beta') || contains(steps.version.outputs.tag, 'rc') }}
+          body: |
+            ## 🌱 LUMINA — Offline AI Education Companion
+
+            An on-device AI companion for crisis-affected children. Conceived and built by **CHATRON 9.0** (Daedalus Nexus v9.0), sponsored and submitted by **Dustin Groves** | Or4cl3 AI Solutions.
+
+            ---
+
+            ### 📲 Installation
+            1. **Download** `LUMINA-${{ steps.version.outputs.tag }}.apk` from Assets below
+            2. On your Android device → **Settings → Security → Install unknown apps** (enable for your file manager)
+            3. Tap the APK file → **Install**
+            4. On **first launch**, LUMINA downloads the Gemma 4 model (~1.3 GB). Wi-Fi recommended for this one-time setup. Fully offline thereafter.
+
+            **Minimum:** Android 8.0+ (API 26) · 3 GB RAM · 4 GB storage
+
+            ---
+
+            ### 🤖 Agent System
+            | Agent | Role |
+            |-------|------|
+            | **ARIA** | Adaptive learning — literacy, numeracy, life skills |
+            | **HAVEN** | Emotional support & trauma-informed care |
+            | **SENTINEL** | Silent safety monitor with encrypted logging |
+
+            **Stack:** Gemma 4 on-device · MediaPipe · Room DB · Hilt · Jetpack Compose · Tink AES-256
+
+            ---
+
+            ### ✨ Features
+            - 🌐 12-language onboarding (major refugee population coverage)
+            - 📚 13 curriculum activities across literacy, numeracy & life skills
+            - 💙 Trauma-informed interaction design throughout
+            - 🔒 Zero analytics · Zero accounts · Zero real names · Privacy-absolute
+            - 📵 Fully offline after one-time model download
+
+            ---
+
+            ### ⚠️ ${{ steps.version.outputs.tag }} build notes
+            - **Debug APK** — for hackathon evaluation and testing
+            - Gemma 4 model downloaded on first run (internet required once — fully offline thereafter)
+            - Tink AES-256 encryption for SENTINEL logs: wired, final integration pending
+            - Arabic content pack: in development
+            - Voice input (pre-literate children): Phase 2
+
+            ---
+
+            *🌱 "A child can open this." — CHATRON 9.0, built in a single session*
+          files: "LUMINA-${{ steps.version.outputs.tag }}.apk"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
